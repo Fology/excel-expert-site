@@ -49,7 +49,7 @@ export default function ExcelExpertSite() {
 
   // Configurações do EmailJS - SUBSTITUA pelos seus dados
   const EMAIL_CONFIG = {
-    serviceId: 'service_3gm3bke',      // ← SUBSTITUA pelo seu Service ID
+    serviceId: 'service_q4wrdct',      // ← SUBSTITUA pelo seu Service ID
     templateId: 'template_ebnhec2',    // ← SUBSTITUA pelo seu Template ID
     publicKey: '-MtpXIC-alqLGkPx7'       // ← SUBSTITUA pela sua Public Key
   };
@@ -63,7 +63,7 @@ export default function ExcelExpertSite() {
     }));
   };
 
-  // Função para enviar email
+  // Função para enviar email COM DEBUG
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     
@@ -72,12 +72,19 @@ export default function ExcelExpertSite() {
       alert('Por favor, preencha todos os campos obrigatórios (*)');
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
+      console.log('🔄 Tentando enviar email...');
+      console.log('📧 Dados:', formData);
+      console.log('⚙️ Config:', EMAIL_CONFIG);
+  
+      // Inicializar EmailJS (importante!)
+      emailjs.init(EMAIL_CONFIG.publicKey);
+  
       // Enviar email via EmailJS
-      await emailjs.send(
+      const result = await emailjs.send(
         EMAIL_CONFIG.serviceId,
         EMAIL_CONFIG.templateId,
         {
@@ -88,10 +95,10 @@ export default function ExcelExpertSite() {
           tipo_projeto: formData.tipoProjeto,
           descricao: formData.descricao,
           reply_to: formData.email,
-        },
-        EMAIL_CONFIG.publicKey
+        }
       );
-
+  
+      console.log('✅ Email enviado com sucesso!', result);
       alert('✅ Proposta enviada com sucesso! Entraremos em contato em breve.');
       
       // Limpar formulário
@@ -100,8 +107,18 @@ export default function ExcelExpertSite() {
       });
       
     } catch (error) {
-      console.error('Erro ao enviar:', error);
-      alert('❌ Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.');
+      console.error('❌ Erro detalhado:', error);
+      
+      // Mensagens de erro mais específicas
+      let errorMessage = 'Erro desconhecido';
+      
+      if (error.text) {
+        errorMessage = `Erro do EmailJS: ${error.text}`;
+      } else if (error.message) {
+        errorMessage = `Erro: ${error.message}`;
+      }
+      
+      alert(`❌ Erro ao enviar: ${errorMessage}\n\nTente novamente ou entre em contato pelo WhatsApp.`);
     } finally {
       setIsLoading(false);
     }
