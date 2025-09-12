@@ -63,67 +63,56 @@ export default function ExcelExpertSite() {
     }));
   };
 
-  // Função para enviar email COM DEBUG
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    
-    // Validar campos obrigatórios
-    if (!formData.nome || !formData.email || !formData.tipoProjeto || !formData.descricao) {
-      alert('Por favor, preencha todos os campos obrigatórios (*)');
-      return;
-    }
-  
-    setIsLoading(true);
-  
-    try {
-      console.log('🔄 Tentando enviar email...');
-      console.log('📧 Dados:', formData);
-      console.log('⚙️ Config:', EMAIL_CONFIG);
-  
-      // Inicializar EmailJS (importante!)
-      emailjs.init(EMAIL_CONFIG.publicKey);
-  
-      // Enviar email via EmailJS
-      const result = await emailjs.send(
-        EMAIL_CONFIG.serviceId,
-        EMAIL_CONFIG.templateId,
-        {
-          from_name: formData.nome,
-          from_email: formData.email,
-          whatsapp: formData.whatsapp || 'Não informado',
-          empresa: formData.empresa || 'Não informado',
-          tipo_projeto: formData.tipoProjeto,
-          descricao: formData.descricao,
-          reply_to: formData.email,
+      // Função para enviar email - VERSÃO FINAL
+      const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        
+        if (!formData.nome || !formData.email || !formData.tipoProjeto || !formData.descricao) {
+          alert('Por favor, preencha todos os campos obrigatórios (*)');
+          return;
         }
-      );
-  
-      console.log('✅ Email enviado com sucesso!', result);
-      alert('✅ Proposta enviada com sucesso! Entraremos em contato em breve.');
       
-      // Limpar formulário
-      setFormData({
-        nome: '', whatsapp: '', email: '', empresa: '', tipoProjeto: '', descricao: ''
-      });
+        setIsLoading(true);
       
-    } catch (error) {
-      console.error('❌ Erro detalhado:', error);
+        try {
+          // Inicializar EmailJS
+          emailjs.init(EMAIL_CONFIG.publicKey);
       
-      // Mensagens de erro mais específicas
-      let errorMessage = 'Erro desconhecido';
+          // Preparar dados para o template
+          const templateParams = {
+            from_name: formData.nome,
+            from_email: formData.email,
+            whatsapp: formData.whatsapp || 'Não informado',
+            empresa: formData.empresa || 'Não informado',
+            tipo_projeto: formData.tipoProjeto,
+            descricao: formData.descricao,
+            reply_to: formData.email
+          };
       
-      if (error.text) {
-        errorMessage = `Erro do EmailJS: ${error.text}`;
-      } else if (error.message) {
-        errorMessage = `Erro: ${error.message}`;
-      }
+          console.log('📤 Enviando com parâmetros:', templateParams);
       
-      alert(`❌ Erro ao enviar: ${errorMessage}\n\nTente novamente ou entre em contato pelo WhatsApp.`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+          // Enviar email
+          const result = await emailjs.send(
+            EMAIL_CONFIG.serviceId,
+            EMAIL_CONFIG.templateId,
+            templateParams
+          );
+      
+          console.log('✅ Sucesso:', result);
+          alert('✅ Proposta enviada com sucesso! Você receberá uma resposta em até 24h.');
+          
+          // Limpar formulário
+          setFormData({
+            nome: '', whatsapp: '', email: '', empresa: '', tipoProjeto: '', descricao: ''
+          });
+          
+        } catch (error) {
+          console.error('❌ Erro:', error);
+          alert(`❌ Erro ao enviar: ${error.text || error.message || 'Erro desconhecido'}`);
+        } finally {
+          setIsLoading(false);
+        }
+      };
   // SEUS DADOS - Serviços
   const servicos = [
     {
