@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import emailjs from '@emailjs/browser';
 import { Textarea } from "@/components/ui/textarea";
 import {
   Menu,
@@ -572,13 +573,13 @@ export default function ExcelExpertSite() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/*<form 
+              <form 
                   name="contato-excel" 
                   method="POST" 
                   data-netlify="true"
                   action="/obrigado"
                   className="space-y-4"
-                >*/}
+              >
                   <input type="hidden" name="form-name" value="contato-excel" />
                   
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
