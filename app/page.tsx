@@ -224,17 +224,37 @@ export default function ExcelExpertSite() {
               para empresas brasileiras. Dashboards, automações e análises que geram resultados reais.
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="bg-green-600 px-8 py-3 text-white hover:bg-green-700">
-                Ver Meus Trabalhos
-                <ArrowRight className="ml-2 h-5 w-5" />
+            // {/* Botões de ação */}
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              {/* Botão Ver Meus Trabalhos - Rola para seção trabalhos */}
+              <Button 
+                size="lg" 
+                className="bg-green-600 hover:bg-green-700"
+                onClick={() => {
+                  const element = document.getElementById('trabalhos');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Ver Meus Trabalhos <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="border-green-600 px-8 py-3 text-green-600 hover:bg-green-50">
+              
+              {/* Botão WhatsApp - Abre WhatsApp */}
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => {
+                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
+                  const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
+                  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappURL, '_blank');
+                }}
+              >
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Falar no WhatsApp
               </Button>
             </div>
-
             {/* Stats */}
             <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
               {stats.map((stat, index) => (
