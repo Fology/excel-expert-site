@@ -46,52 +46,52 @@ export default function ExcelExpertSite() {
       icon: Calculator,
       titulo: "Automação de Planilhas",
       descricao: "Automatização de processos repetitivos com VBA e fórmulas avançadas para economia de tempo e redução de erros.",
-      preco: "A partir de R$ 250"
+      preco: "A partir de R$ 400"
     },
     {
       icon: Database,
       titulo: "Análise de Dados",
       descricao: "Tratamento e análise de grandes volumes de dados com Power Query, tabelas dinâmicas e funções estatísticas.",
-      preco: "A partir de R$ 400"
+      preco: "A partir de R$ 300"
     },
     {
       icon: TrendingUp,
       titulo: "Relatórios Gerenciais",
       descricao: "Desenvolvimento de relatórios executivos automatizados com indicadores de performance e análise de tendências.",
-      preco: "A partir de R$ 350"
+      preco: "A partir de R$ 700"
     },
     {
       icon: Target,
       titulo: "Controle Financeiro",
       descricao: "Planilhas de controle financeiro, fluxo de caixa, orçamentos e projeções financeiras para PMEs.",
-      preco: "A partir de R$ 200"
+      preco: "A partir de R$ 300"
     },
     {
       icon: Users,
       titulo: "Gestão de Equipes",
       descricao: "Sistemas de controle de produtividade, escala de funcionários e acompanhamento de metas de vendas.",
-      preco: "A partir de R$ 280"
+      preco: "A partir de R$ 500"
     }
   ];
 
   const trabalhos = [
     {
-      titulo: "Dashboard de Vendas - E-commerce",
-      categoria: "Retail",
-      descricao: "Dashboard completo para loja online com 50+ produtos, análise de conversão e performance por canal.",
-      resultados: ["Aumento de 35% na produtividade", "Redução de 60% no tempo de análise", "Identificação de produtos mais rentáveis"]
+      titulo: "Planilha Para Empresa Química",
+      categoria: "Química",
+      descricao: "Planilha que auxilia no planejamento de lotes, comparação, exibição de resultados e acompanhamento diário dos resultados.",
+      resultados: ["Diminuição do tempo de planejamento de 3 dias para 1 dia", "Redução de 60% no tempo de análise", "Melhor controle e acompanhamento de todos os produtos"]
     },
     {
-      titulo: "Automação Financeira - Construtora",
-      categoria: "Construção Civil",
-      descricao: "Sistema automatizado de controle de custos de obras, fornecedores e margem de lucro por projeto.",
-      resultados: ["Economia de 20 horas/semana", "Controle preciso de custos", "Relatórios automáticos para diretoria"]
+      titulo: "Cadastro e Relatórios de Paradas",
+      categoria: "Manutenção",
+      descricao: "Sistema automatizado de cadastro de paradas de áreas e criação de um relatório com dashboards.",
+      resultados: ["Retirada a necessidade de usar cadernos para acompanhar paradas de áreas", "Melhor controle dos equipamentos críticos", "Relatórios automáticos para diretoria"]
     },
     {
-      titulo: "Análise de Estoque - Distribuidora",
-      categoria: "Distribuição",
-      descricao: "Planilha de controle de estoque inteligente com alertas de reposição e análise ABC de produtos.",
-      resultados: ["Redução de 25% no estoque parado", "Otimização de compras", "Previsão de demanda automatizada"]
+      titulo: "Análise de Produção - Britagem de Minérios",
+      categoria: "Britagem",
+      descricao: "Planilha de controle que cadastra cada material processado e geração de ralatórios de toda etapa produtiva.",
+      resultados: ["Redução no estoque parado", "Otimização e visualização dos dados de todo material processado", "Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%"]
     }
   ];
 
@@ -120,9 +120,9 @@ export default function ExcelExpertSite() {
   ];
 
   const stats = [
-    { numero: "200+", label: "Projetos Entregues" },
-    { numero: "150+", label: "Clientes Satisfeitos" },
-    { numero: "5+", label: "Anos de Experiência" },
+    { numero: "50+", label: "Projetos Entregues" },
+    { numero: "30+", label: "Clientes Satisfeitos" },
+    { numero: "7+", label: "Anos de Experiência" },
     { numero: "98%", label: "Taxa de Aprovação" }
   ];
 
