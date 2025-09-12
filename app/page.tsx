@@ -91,7 +91,7 @@ export default function ExcelExpertSite() {
       titulo: "Análise de Produção - Britagem de Minérios",
       categoria: "Britagem",
       descricao: "Planilha de controle que cadastra cada material processado e geração de ralatórios de toda etapa produtiva.",
-      resultados: ["Redução no estoque parado", "Otimização e visualização dos dados de todo material processado", "Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%"]
+      resultados: ["Redução no estoque parado de 25%", "Otimização e visualização dos dados de todo material processado", "Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%"]
     }
   ];
 
@@ -277,7 +277,7 @@ export default function ExcelExpertSite() {
               <span className="text-green-600">Decisões Inteligentes</span>
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
-              Especialista em Excel com mais de 5 anos de experiência criando 
+              Especialista em Excel com mais de 7 anos de experiência criando 
               soluções personalizadas para empresas brasileiras. Dashboards, 
               automações e análises que geram resultados reais.
             </p>
@@ -361,29 +361,29 @@ export default function ExcelExpertSite() {
         </div>
         <CardHeader>
           <div className="mb-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-            Financeiro
+            Química
           </div>
           <CardTitle className="text-xl font-bold text-gray-900">
-            Dashboard Financeiro Corporativo
+            Planilha Para Empresa Química
           </CardTitle>
         </CardHeader>
         <CardContent>
           <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Sistema completo de controle financeiro com análises em tempo real, projeções e indicadores de performance.
+            Planilha que auxilia no planejamento de lotes, comparação, exibição de resultados e acompanhamento diário dos resultados.
           </CardDescription>
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Redução de 80% no tempo de análise financeira
+              Diminuição do tempo de planejamento de 3 dias para 1 dia
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Automatização de 15 relatórios mensais
+              Redução de 60% no tempo de análise
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Economia de R$ 50.000 por ano em processos
+              Melhor controle e acompanhamento de todos os produtos
             </div>
           </div>
         </CardContent>
@@ -400,29 +400,29 @@ export default function ExcelExpertSite() {
         </div>
         <CardHeader>
           <div className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
-            Gestão
+            Manutenção
           </div>
           <CardTitle className="text-xl font-bold text-gray-900">
-            Sistema de Controle de Estoque
+            Cadastro e Relatórios de Paradas
           </CardTitle>
         </CardHeader>
         <CardContent>
           <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Planilha avançada para controle de estoque com alertas automáticos, histórico de movimentação e previsão de demanda.
+            Sistema automatizado de cadastro de paradas de áreas e criação de um relatório com dashboards.
           </CardDescription>
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Redução de 60% em produtos em falta
+              Retirada a necessidade de usar cadernos para acompanhar paradas de áreas
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Otimização de 30% no capital de giro
+              Melhor controle dos equipamentos críticos
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Automatização completa dos pedidos
+              Relatórios automáticos para diretoria
             </div>
           </div>
         </CardContent>
@@ -439,29 +439,29 @@ export default function ExcelExpertSite() {
         </div>
         <CardHeader>
           <div className="mb-2 inline-block rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800">
-            Produção
+            Britagem
           </div>
           <CardTitle className="text-xl font-bold text-gray-900">
-            Análise de Produtividade Industrial
+            Análise de Produção - Britagem de Minérios
           </CardTitle>
         </CardHeader>
         <CardContent>
           <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Dashboard completo para monitoramento da produção com indicadores de eficiência, qualidade e performance das equipes.
+            Planilha de controle que cadastra cada material processado e geração de ralatórios de toda etapa produtiva.
           </CardDescription>
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Aumento de 25% na produtividade
+              Redução no estoque parado de 25%
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Redução de 40% no tempo de parada
+              Otimização e visualização dos dados de todo material processado
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Melhoria de 15% na qualidade final
+              Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%
             </div>
           </div>
         </CardContent>
