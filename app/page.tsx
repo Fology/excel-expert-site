@@ -245,7 +245,7 @@ export default function ExcelExpertSite() {
                 variant="outline" 
                 size="lg"
                 onClick={() => {
-                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
+                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
                   const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
                   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappURL, '_blank');
@@ -268,45 +268,74 @@ export default function ExcelExpertSite() {
         </div>
       </section>
 
-      {/* Serviços Section */}
-      <section id="servicos" className="py-20">
+      // {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 py-20 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Serviços Especializados em Excel
-            </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Soluções completas para otimizar seus processos e potencializar seus resultados
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Transforme Seus Dados em{' '}
+              <span className="text-green-600">Decisões Inteligentes</span>
+            </h1>
+            <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+              Especialista em Excel com mais de 5 anos de experiência criando 
+              soluções personalizadas para empresas brasileiras. Dashboards, 
+              automações e análises que geram resultados reais.
             </p>
-          </div>
+            
+            {/* Botões funcionais */}
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              {/* Botão Ver Meus Trabalhos */}
+              <Button 
+                size="lg" 
+                className="bg-green-600 hover:bg-green-700"
+                onClick={() => {
+                  const element = document.getElementById('trabalhos');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Ver Meus Trabalhos <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              
+              {/* Botão WhatsApp */}
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => {
+                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
+                  const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
+                  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappURL, '_blank');
+                }}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Falar no WhatsApp
+              </Button>
+            </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {servicos.map((servico, index) => (
-              <Card key={index} className="border-gray-200 transition-shadow hover:shadow-lg">
-                <CardHeader>
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
-                    <servico.icon className="h-6 w-6 text-green-600" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
-                    {servico.titulo}
-                  </CardTitle>
-                  <div className="text-lg font-semibold text-green-600">
-                    {servico.preco}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="mb-4 leading-relaxed text-gray-600">
-                    {servico.descricao}
-                  </CardDescription>
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
-                    Solicitar Orçamento
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Estatísticas */}
+      <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
+        <div className="text-center">
+          <div className="text-3xl font-bold text-green-600">50+</div>
+          <div className="text-sm text-gray-600">Projetos Entregues</div>
         </div>
-      </section>
+        <div className="text-center">
+          <div className="text-3xl font-bold text-green-600">30+</div>
+          <div className="text-sm text-gray-600">Clientes Satisfeitos</div>
+        </div>
+        <div className="text-center">
+          <div className="text-3xl font-bold text-green-600">7+</div>
+          <div className="text-sm text-gray-600">Anos de Experiência</div>
+        </div>
+        <div className="text-center">
+          <div className="text-3xl font-bold text-green-600">98%</div>
+          <div className="text-sm text-gray-600">Taxa de Aprovação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       // {/* Trabalhos/Portfolio Section */}
 <section id="trabalhos" className="bg-gray-50 py-20">
