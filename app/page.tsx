@@ -31,10 +31,83 @@ import {
   Zap
 } from "lucide-react";
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 export default function ExcelExpertSite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Estados para o formulário
+  const [formData, setFormData] = useState({
+    nome: '',
+    whatsapp: '',
+    email: '',
+    empresa: '',
+    tipoProjeto: '',
+    descricao: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Configurações do EmailJS - SUBSTITUA pelos seus dados
+  const EMAIL_CONFIG = {
+    serviceId: 'service_3gm3bke',      // ← SUBSTITUA pelo seu Service ID
+    templateId: 'template_ebnhec2',    // ← SUBSTITUA pelo seu Template ID
+    publicKey: '-MtpXIC-alqLGkPx7'       // ← SUBSTITUA pela sua Public Key
+  };
+
+  // Função para atualizar os campos
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Função para enviar email
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    
+    // Validar campos obrigatórios
+    if (!formData.nome || !formData.email || !formData.tipoProjeto || !formData.descricao) {
+      alert('Por favor, preencha todos os campos obrigatórios (*)');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Enviar email via EmailJS
+      await emailjs.send(
+        EMAIL_CONFIG.serviceId,
+        EMAIL_CONFIG.templateId,
+        {
+          from_name: formData.nome,
+          from_email: formData.email,
+          whatsapp: formData.whatsapp || 'Não informado',
+          empresa: formData.empresa || 'Não informado',
+          tipo_projeto: formData.tipoProjeto,
+          descricao: formData.descricao,
+          reply_to: formData.email,
+        },
+        EMAIL_CONFIG.publicKey
+      );
+
+      alert('✅ Proposta enviada com sucesso! Entraremos em contato em breve.');
+      
+      // Limpar formulário
+      setFormData({
+        nome: '', whatsapp: '', email: '', empresa: '', tipoProjeto: '', descricao: ''
+      });
+      
+    } catch (error) {
+      console.error('Erro ao enviar:', error);
+      alert('❌ Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // SEUS DADOS - Serviços
   const servicos = [
     {
       icon: BarChart3,
@@ -74,27 +147,41 @@ export default function ExcelExpertSite() {
     }
   ];
 
+  // SEUS DADOS - Trabalhos/Portfolio
   const trabalhos = [
     {
       titulo: "Planilha Para Empresa Química",
       categoria: "Química",
       descricao: "Planilha que auxilia no planejamento de lotes, comparação, exibição de resultados e acompanhamento diário dos resultados.",
-      resultados: ["Diminuição do tempo de planejamento de 3 dias para 1 dia", "Redução de 60% no tempo de análise", "Melhor controle e acompanhamento de todos os produtos"]
+      resultados: [
+        "Diminuição do tempo de planejamento de 3 dias para 1 dia", 
+        "Redução de 60% no tempo de análise", 
+        "Melhor controle e acompanhamento de todos os produtos"
+      ]
     },
     {
       titulo: "Cadastro e Relatórios de Paradas",
       categoria: "Manutenção",
       descricao: "Sistema automatizado de cadastro de paradas de áreas e criação de um relatório com dashboards.",
-      resultados: ["Retirada a necessidade de usar cadernos para acompanhar paradas de áreas", "Melhor controle dos equipamentos críticos", "Relatórios automáticos para diretoria"]
+      resultados: [
+        "Retirada a necessidade de usar cadernos para acompanhar paradas de áreas", 
+        "Melhor controle dos equipamentos críticos", 
+        "Relatórios automáticos para diretoria"
+      ]
     },
     {
       titulo: "Análise de Produção - Britagem de Minérios",
       categoria: "Britagem",
       descricao: "Planilha de controle que cadastra cada material processado e geração de ralatórios de toda etapa produtiva.",
-      resultados: ["Redução no estoque parado de 25%", "Otimização e visualização dos dados de todo material processado", "Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%"]
+      resultados: [
+        "Redução no estoque parado", 
+        "Otimização e visualização dos dados de todo material processado", 
+        "Relatórios que auxiliam em ver desvios de produção o que diminuiu a ociosidade em 25%"
+      ]
     }
   ];
 
+  // SEUS DADOS - Depoimentos
   const depoimentos = [
     {
       nome: "Carlos Mendes",
@@ -119,9 +206,10 @@ export default function ExcelExpertSite() {
     }
   ];
 
+  // SUAS ESTATÍSTICAS
   const stats = [
     { numero: "50+", label: "Projetos Entregues" },
-    { numero: "30+", label: "Clientes Satisfeitos" },
+    { numero: "30+", label: "Clientes Satisfeitos" }, 
     { numero: "7+", label: "Anos de Experiência" },
     { numero: "98%", label: "Taxa de Aprovação" }
   ];
@@ -132,42 +220,42 @@ export default function ExcelExpertSite() {
       <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
             <div className="flex items-center">
-              <div className="flex items-center space-x-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-600">
-                  <BarChart3 className="h-5 w-5 text-white" />
-                </div>
-                <h1 className="text-xl font-bold text-gray-900">Excel Expert BR</h1>
-              </div>
+              <h1 className="text-2xl font-bold text-green-600">Excel Expert BR</h1>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
-                <a href="#servicos" className="text-gray-700 hover:text-green-600 transition-colors">
+              <div className="flex items-center space-x-8">
+                <a href="#servicos" className="text-gray-700 hover:text-green-600">
                   Serviços
                 </a>
-                <a href="#trabalhos" className="text-gray-700 hover:text-green-600 transition-colors">
-                  Portfólio
+                <a href="#trabalhos" className="text-gray-700 hover:text-green-600">
+                  Portfolio
                 </a>
-                <a href="#depoimentos" className="text-gray-700 hover:text-green-600 transition-colors">
+                <a href="#depoimentos" className="text-gray-700 hover:text-green-600">
                   Depoimentos
                 </a>
-                <a href="#contato" className="text-gray-700 hover:text-green-600 transition-colors">
+                <a href="#contato" className="text-gray-700 hover:text-green-600">
                   Contato
                 </a>
               </div>
             </nav>
 
-            {/* CTA Button */}
             <div className="hidden md:block">
-              <Button className="bg-green-600 text-white hover:bg-green-700">
-                Solicitar Orçamento
+              <Button 
+                className="bg-green-600 hover:bg-green-700"
+                onClick={() => {
+                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
+                  const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
+                  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappURL, '_blank');
+                }}
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                WhatsApp
               </Button>
             </div>
 
-            {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -181,12 +269,12 @@ export default function ExcelExpertSite() {
           {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden">
-              <div className="space-y-1 border-t border-gray-200 px-2 pb-3 pt-2 sm:px-3">
+              <div className="space-y-1 border-t border-gray-200 px-2 pb-3 pt-2">
                 <a href="#servicos" className="block px-3 py-2 text-gray-700 hover:text-green-600">
                   Serviços
                 </a>
                 <a href="#trabalhos" className="block px-3 py-2 text-gray-700 hover:text-green-600">
-                  Portfólio
+                  Portfolio
                 </a>
                 <a href="#depoimentos" className="block px-3 py-2 text-gray-700 hover:text-green-600">
                   Depoimentos
@@ -194,11 +282,6 @@ export default function ExcelExpertSite() {
                 <a href="#contato" className="block px-3 py-2 text-gray-700 hover:text-green-600">
                   Contato
                 </a>
-                <div className="px-3 py-2">
-                  <Button className="w-full bg-green-600 text-white hover:bg-green-700">
-                    Solicitar Orçamento
-                  </Button>
-                </div>
               </div>
             </div>
           )}
@@ -207,26 +290,20 @@ export default function ExcelExpertSite() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 py-20 lg:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-6 inline-flex items-center rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-800">
-              <Award className="mr-2 h-4 w-4" />
-              Especialista Certificado Microsoft Excel
-            </div>
-            
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              Transforme Seus Dados em{" "}
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Transforme Seus Dados em{' '}
               <span className="text-green-600">Decisões Inteligentes</span>
             </h1>
-
-            <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-600">
-              Especialista em Excel com mais de 5 anos de experiência criando soluções personalizadas 
-              para empresas brasileiras. Dashboards, automações e análises que geram resultados reais.
+            <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+              Especialista em Excel com mais de 5 anos de experiência criando 
+              soluções personalizadas para empresas brasileiras. Dashboards, 
+              automações e análises que geram resultados reais.
             </p>
-
-            // {/* Botões de ação */}
+            
+            {/* Botões funcionais */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              {/* Botão Ver Meus Trabalhos - Rola para seção trabalhos */}
               <Button 
                 size="lg" 
                 className="bg-green-600 hover:bg-green-700"
@@ -240,12 +317,11 @@ export default function ExcelExpertSite() {
                 Ver Meus Trabalhos <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               
-              {/* Botão WhatsApp - Abre WhatsApp */}
               <Button 
                 variant="outline" 
                 size="lg"
                 onClick={() => {
-                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
+                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
                   const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
                   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappURL, '_blank');
@@ -255,8 +331,9 @@ export default function ExcelExpertSite() {
                 Falar no WhatsApp
               </Button>
             </div>
-            {/* Stats */}
-            <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+
+            {/* Estatísticas */}
+            <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl font-bold text-green-600">{stat.numero}</div>
@@ -268,217 +345,185 @@ export default function ExcelExpertSite() {
         </div>
       </section>
 
-      // {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 py-20 lg:py-32">
+      {/* Seção de Serviços */}
+      <section id="servicos" className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Transforme Seus Dados em{' '}
-              <span className="text-green-600">Decisões Inteligentes</span>
-            </h1>
-            <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
-              Especialista em Excel com mais de 7 anos de experiência criando 
-              soluções personalizadas para empresas brasileiras. Dashboards, 
-              automações e análises que geram resultados reais.
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+              Serviços Especializados
+            </h2>
+            <p className="mx-auto max-w-2xl text-xl text-gray-600">
+              Soluções personalizadas em Excel para transformar seus dados em insights valiosos
             </p>
-            
-            {/* Botões funcionais */}
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              {/* Botão Ver Meus Trabalhos */}
-              <Button 
-                size="lg" 
-                className="bg-green-600 hover:bg-green-700"
-                onClick={() => {
-                  const element = document.getElementById('trabalhos');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                Ver Meus Trabalhos <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              
-              {/* Botão WhatsApp */}
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => {
-                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
-                  const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
-                  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                  window.open(whatsappURL, '_blank');
-                }}
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Falar no WhatsApp
-              </Button>
-            </div>
-
-      {/* Estatísticas */}
-      <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
-        <div className="text-center">
-          <div className="text-3xl font-bold text-green-600">50+</div>
-          <div className="text-sm text-gray-600">Projetos Entregues</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-green-600">30+</div>
-          <div className="text-sm text-gray-600">Clientes Satisfeitos</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-green-600">7+</div>
-          <div className="text-sm text-gray-600">Anos de Experiência</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-green-600">98%</div>
-          <div className="text-sm text-gray-600">Taxa de Aprovação</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-      // {/* Trabalhos/Portfolio Section */}
-<section id="trabalhos" className="bg-gray-50 py-20">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="mb-16 text-center">
-      <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-        Casos de Sucesso
-      </h2>
-      <p className="mx-auto max-w-2xl text-xl text-gray-600">
-        Projetos reais que transformaram a gestão de dados dos meus clientes
-      </p>
-    </div>
-
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-      {/* CARD 1 - Dashboard Financeiro */}
-      <Card className="border-gray-200">
-        <div className="overflow-hidden rounded-t-lg">
-          <img 
-            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1d5fce4b-06a7-49d8-9db2-64aaf7f5d2fa.png" 
-            alt="Dashboard financeiro com gráficos e métricas de desempenho empresarial"
-            className="h-48 w-full object-cover"
-          />
-        </div>
-        <CardHeader>
-          <div className="mb-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-            Química
           </div>
-          <CardTitle className="text-xl font-bold text-gray-900">
-            Planilha Para Empresa Química
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Planilha que auxilia no planejamento de lotes, comparação, exibição de resultados e acompanhamento diário dos resultados.
-          </CardDescription>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Diminuição do tempo de planejamento de 3 dias para 1 dia
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Redução de 60% no tempo de análise
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Melhor controle e acompanhamento de todos os produtos
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* CARD 2 - Sistema de Gestão */}
-      <Card className="border-gray-200">
-        <div className="overflow-hidden rounded-t-lg">
-          <img 
-            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b5ccef96-d908-44eb-a7b9-9db267fe1cbf.png" 
-            alt="Interface de sistema de gestão com tabelas e dados organizados"
-            className="h-48 w-full object-cover"
-          />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {servicos.map((servico, index) => (
+              <Card key={index} className="border-gray-200 transition-shadow hover:shadow-lg">
+                <CardHeader>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
+                    <servico.icon className="h-6 w-6 text-green-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900">
+                    {servico.titulo}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="mb-4 leading-relaxed text-gray-600">
+                    {servico.descricao}
+                  </CardDescription>
+                  <div className="text-lg font-semibold text-green-600">
+                    {servico.preco}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-        <CardHeader>
-          <div className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
-            Manutenção
-          </div>
-          <CardTitle className="text-xl font-bold text-gray-900">
-            Cadastro e Relatórios de Paradas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Sistema automatizado de cadastro de paradas de áreas e criação de um relatório com dashboards.
-          </CardDescription>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Retirada a necessidade de usar cadernos para acompanhar paradas de áreas
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Melhor controle dos equipamentos críticos
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Relatórios automáticos para diretoria
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      </section>
 
-      {/* CARD 3 - Análise de Produção */}
-      <Card className="border-gray-200">
-        <div className="overflow-hidden rounded-t-lg">
-          <img 
-            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cb491d85-e621-41e1-a235-7b3d14034233.png" 
-            alt="Gráficos e análises de dados de produção industrial"
-            className="h-48 w-full object-cover"
-          />
+      {/* Trabalhos/Portfolio Section */}
+      <section id="trabalhos" className="bg-gray-50 py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+              Casos de Sucesso
+            </h2>
+            <p className="mx-auto max-w-2xl text-xl text-gray-600">
+              Projetos reais que transformaram a gestão de dados dos meus clientes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {/* CARD 1 - Empresa Química */}
+            <Card className="border-gray-200">
+              <div className="overflow-hidden rounded-t-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" 
+                  alt="Dashboard com gráficos para indústria química mostrando controle de lotes e planejamento"
+                  className="h-48 w-full object-cover"
+                />
+              </div>
+              <CardHeader>
+                <div className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
+                  Química
+                </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Planilha Para Empresa Química
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="mb-4 leading-relaxed text-gray-600">
+                  Planilha que auxilia no planejamento de lotes, comparação, exibição de resultados e acompanhamento diário dos resultados.
+                </CardDescription>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Diminuição do tempo de planejamento de 3 dias para 1 dia
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Redução de 60% no tempo de análise
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Melhor controle e acompanhamento de todos os produtos
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CARD 2 - Cadastro de Paradas */}
+            <Card className="border-gray-200">
+              <div className="overflow-hidden rounded-t-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop" 
+                  alt="Sistema de controle de manutenção com dashboards para acompanhamento de equipamentos"
+                  className="h-48 w-full object-cover"
+                />
+              </div>
+              <CardHeader>
+                <div className="mb-2 inline-block rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-800">
+                  Manutenção
+                </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Cadastro e Relatórios de Paradas
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="mb-4 leading-relaxed text-gray-600">
+                  Sistema automatizado de cadastro de paradas de áreas e criação de um relatório com dashboards.
+                </CardDescription>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Retirada a necessidade de usar cadernos para acompanhar paradas
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Melhor controle dos equipamentos críticos
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Relatórios automáticos para diretoria
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CARD 3 - Britagem de Minérios */}
+            <Card className="border-gray-200">
+              <div className="overflow-hidden rounded-t-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=200&fit=crop" 
+                  alt="Análise de dados de produção industrial com gráficos de performance e controle de materiais"
+                  className="h-48 w-full object-cover"
+                />
+              </div>
+              <CardHeader>
+                <div className="mb-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800">
+                  Britagem
+                </div>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Análise de Produção - Britagem de Minérios
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="mb-4 leading-relaxed text-gray-600">
+                  Planilha de controle que cadastra cada material processado e geração de relatórios de toda etapa produtiva.
+                </CardDescription>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Redução no estoque parado
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Otimização e visualização dos dados processados
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+                    Diminuição da ociosidade em 25%
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-        <CardHeader>
-          <div className="mb-2 inline-block rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800">
-            Britagem
-          </div>
-          <CardTitle className="text-xl font-bold text-gray-900">
-            Análise de Produção - Britagem de Minérios
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription className="mb-4 leading-relaxed text-gray-600">
-            Planilha de controle que cadastra cada material processado e geração de ralatórios de toda etapa produtiva.
-          </CardDescription>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Redução no estoque parado de 25%
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Otimização e visualização dos dados de todo material processado
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-              Relatórios que auxiliam em ver desvios de produção o que diminuio a ociosidade em 25%
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  </div>
-</section>
+      </section>
 
-      {/* Depoimentos Section */}
+      {/* Seção de Depoimentos */}
       <section id="depoimentos" className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              O Que Dizem Meus Clientes
+              Depoimentos dos Clientes
             </h2>
             <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Depoimentos reais de empresários que confiaram no meu trabalho
+              Veja o que meus clientes falam sobre os resultados alcançados
             </p>
           </div>
 
@@ -488,7 +533,10 @@ export default function ExcelExpertSite() {
                 <CardContent className="p-6">
                   <div className="mb-4 flex">
                     {[...Array(depoimento.avaliacao)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="h-5 w-5 fill-yellow-400 text-yellow-400"
+                      />
                     ))}
                   </div>
                   <blockquote className="mb-4 leading-relaxed text-gray-700">
@@ -509,141 +557,53 @@ export default function ExcelExpertSite() {
         </div>
       </section>
 
-      {/* Processo de Trabalho */}
-      <section className="bg-gray-50 py-20">
+      {/* Formulário de Contato FUNCIONAL */}
+      <section id="contato" className="bg-gray-50 py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Como Funciona
+              Solicite Seu Orçamento
             </h2>
             <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Processo simples e transparente para entregar a solução perfeita
+              Preencha o formulário e receba uma proposta personalizada por email
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <MessageCircle className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900">1. Conversa Inicial</h3>
-              <p className="text-gray-600">Entendo sua necessidade e objetivo através do WhatsApp ou videochamada</p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <Target className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900">2. Análise & Proposta</h3>
-              <p className="text-gray-600">Analiso seus dados e envio proposta detalhada com prazo e investimento</p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <Zap className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900">3. Desenvolvimento</h3>
-              <p className="text-gray-600">Crio a solução personalizada e envio previews para ajustes</p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900">4. Entrega & Suporte</h3>
-              <p className="text-gray-600">Entrego o projeto finalizado com treinamento e suporte incluído</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contato Section */}
-      <section id="contato" className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Vamos Conversar Sobre Seu Projeto?
-            </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Entre em contato e receba um orçamento personalizado em até 24 horas
-            </p>
-          </div>
-
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-2">
-            {/* Informações de Contato */}
-            <div>
-              <h3 className="mb-6 text-2xl font-bold text-gray-900">
-                Formas de Contato
-              </h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-center">
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
-                    <MessageCircle className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">WhatsApp (Preferido)</h4>
-                    <p className="text-gray-600">+55 (31) 98456-8339</p>
-                    <Button variant="outline" className="mt-2 border-green-600 text-green-600 hover:bg-green-50">
-                      Iniciar Conversa
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">E-mail</h4>
-                    <p className="text-gray-600">gabrielfrancisco.12@hotmail.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
-                    <Phone className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Telefone</h4>
-                    <p className="text-gray-600">+55 (31) 984568339</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 rounded-lg bg-green-50 p-6">
-                <h4 className="mb-2 font-semibold text-green-800">Atendimento Rápido</h4>
-                <p className="text-green-700">
-                  Respondo em até 2 horas no horário comercial (9h às 18h) 
-                  e em até 24h nos finais de semana.
-                </p>
-              </div>
-            </div>
-
-            {/* Formulário de Contato */}
-            <div>
-              <Card className="border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900">
-                    Solicite Seu Orçamento
-                  </CardTitle>
-                  <CardDescription>
-                    Preencha os dados abaixo e receba uma proposta personalizada
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+          <div className="mx-auto max-w-2xl">
+            <Card className="border-gray-200">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-gray-900">
+                  Formulário de Contato
+                </CardTitle>
+                <CardDescription>
+                  Preencha todos os campos para receber uma proposta detalhada
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-gray-700">
-                        Nome *
+                        Nome Completo *
                       </label>
-                      <Input placeholder="Seu nome completo" />
+                      <Input 
+                        name="nome"
+                        value={formData.nome}
+                        onChange={handleInputChange}
+                        placeholder="Digite seu nome completo" 
+                        required
+                      />
                     </div>
                     <div>
                       <label className="mb-2 block text-sm font-medium text-gray-700">
-                        WhatsApp *
+                        WhatsApp
                       </label>
-                      <Input placeholder="(11) 99999-9999" />
+                      <Input 
+                        name="whatsapp"
+                        value={formData.whatsapp}
+                        onChange={handleInputChange}
+                        placeholder="(11) 99999-9999" 
+                      />
                     </div>
                   </div>
                   
@@ -651,28 +611,47 @@ export default function ExcelExpertSite() {
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       E-mail *
                     </label>
-                    <Input type="email" placeholder="seu@email.com" />
+                    <Input 
+                      type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="seu@email.com" 
+                      required
+                    />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       Empresa
                     </label>
-                    <Input placeholder="Nome da sua empresa" />
+                    <Input 
+                      name="empresa"
+                      value={formData.empresa}
+                      onChange={handleInputChange}
+                      placeholder="Nome da sua empresa" 
+                    />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       Tipo de Projeto *
                     </label>
-                    <select className="w-full rounded-md border border-gray-300 px-3 py-2">
-                      <option>Selecione o tipo de projeto</option>
-                      <option>Dashboard</option>
-                      <option>Automação</option>
-                      <option>Análise de Dados</option>
-                      <option>Relatório Gerencial</option>
-                      <option>Controle Financeiro</option>
-                      <option>Outro</option>
+                    <select 
+                      name="tipoProjeto"
+                      value={formData.tipoProjeto}
+                      onChange={handleInputChange}
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
+                      required
+                    >
+                      <option value="">Selecione o tipo de projeto</option>
+                      <option value="Dashboard Profissional">Dashboard Profissional</option>
+                      <option value="Automação de Planilhas">Automação de Planilhas</option>
+                      <option value="Análise de Dados">Análise de Dados</option>
+                      <option value="Relatório Gerencial">Relatório Gerencial</option>
+                      <option value="Controle Financeiro">Controle Financeiro</option>
+                      <option value="Gestão de Equipes">Gestão de Equipes</option>
+                      <option value="Outro">Outro</option>
                     </select>
                   </div>
 
@@ -681,41 +660,102 @@ export default function ExcelExpertSite() {
                       Descreva seu projeto *
                     </label>
                     <Textarea 
-                      placeholder="Conte mais sobre o que você precisa, qual problema quer resolver, quantos dados tem, etc."
-                      rows={4}
+                      name="descricao"
+                      value={formData.descricao}
+                      onChange={handleInputChange}
+                      placeholder="Descreva detalhadamente o que você precisa: qual problema quer resolver, que tipo de dados tem, quantas pessoas vão usar, prazo desejado, etc."
+                      rows={5}
+                      required
                     />
                   </div>
 
-                  <Button className="w-full bg-green-600 text-white hover:bg-green-700">
-                    Enviar Solicitação
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                  <Button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className="w-full bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        Enviar Proposta
+                        <Mail className="ml-2 h-4 w-4" />
+                      </>
+                    )}
                   </Button>
 
                   <p className="text-center text-xs text-gray-500">
-                    Ao enviar, você concorda em receber contato por WhatsApp ou e-mail
+                    * Campos obrigatórios. Você receberá uma resposta por email em até 24h.
                   </p>
-                </CardContent>
-              </Card>
-            </div>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-gray-50">
-        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between sm:flex-row">
-            <div className="mb-4 flex items-center space-x-2 sm:mb-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-600">
-                <BarChart3 className="h-5 w-5 text-white" />
+      <footer className="border-t border-gray-200 bg-white py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div>
+              <h3 className="mb-4 text-lg font-bold text-gray-900">Excel Expert BR</h3>
+              <p className="mb-4 text-gray-600">
+                Especialista em soluções Excel para empresas brasileiras. 
+                Transformamos seus dados em decisões inteligentes.
+              </p>
+              <div className="flex space-x-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
+                    const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços.";
+                    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappURL, '_blank');
+                  }}
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </Button>
               </div>
-              <span className="text-lg font-bold text-gray-900">Excel Expert BR</span>
             </div>
-            
-            <div className="text-center text-sm text-gray-600 sm:text-right">
-              <p>© 2025 Excel Expert BR. Todos os direitos reservados.</p>
-              <p className="mt-1">Especialista em soluções Excel para empresas brasileiras</p>
+
+            <div>
+              <h4 className="mb-4 font-semibold text-gray-900">Serviços</h4>
+              <ul className="space-y-2">
+                <li><a href="#servicos" className="text-gray-600 hover:text-green-600">Dashboards</a></li>
+                <li><a href="#servicos" className="text-gray-600 hover:text-green-600">Automação</a></li>
+                <li><a href="#servicos" className="text-gray-600 hover:text-green-600">Análise de Dados</a></li>
+                <li><a href="#servicos" className="text-gray-600 hover:text-green-600">Relatórios</a></li>
+              </ul>
             </div>
+
+            <div>
+              <h4 className="mb-4 font-semibold text-gray-900">Contato</h4>
+              <ul className="space-y-2">
+                <li className="flex items-center text-gray-600">
+                  <Phone className="mr-2 h-4 w-4" />
+                  (31) 984568339
+                </li>
+                <li className="flex items-center text-gray-600">
+                  <Mail className="mr-2 h-4 w-4" />
+                  gabrielfrancisco.12@hotmail.com
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center justify-between border-t border-gray-200 pt-8 sm:flex-row">
+            <p className="text-sm text-gray-600">
+              © 2024 Excel Expert BR. Todos os direitos reservados.
+            </p>
+            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+              Feito com ❤️ para empresas brasileiras
+            </p>
           </div>
         </div>
       </footer>
