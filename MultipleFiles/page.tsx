@@ -14,21 +14,17 @@ import {
   Menu,
   X,
   ArrowRight,
-  Play,
   BarChart3,
   Calculator,
   Database,
   TrendingUp,
   Users,
-  Clock,
   CheckCircle,
   Star,
   Phone,
   Mail,
   MessageCircle,
-  Award,
-  Target,
-  Zap
+  Target
 } from "lucide-react";
 import { useState } from "react";
 import emailjs from '@emailjs/browser'; // Certifique-se de que esta linha está aqui
