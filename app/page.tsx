@@ -63,7 +63,7 @@ export default function ExcelExpertSite() {
     }));
   };
 
-      // Função com debug detalhado para identificar o problema
+      // Função corrigida - variáveis alinhadas com o template
       const handleSubmit = async (e: any) => {
         e.preventDefault();
         
@@ -75,38 +75,34 @@ export default function ExcelExpertSite() {
         setIsLoading(true);
       
         try {
-          console.log('🔧 Configuração EmailJS:', EMAIL_CONFIG);
+          console.log('🔄 Iniciando envio...');
           
-          // Verificar se as credenciais estão preenchidas
-          if (!EMAIL_CONFIG.serviceId || !EMAIL_CONFIG.templateId || !EMAIL_CONFIG.publicKey) {
-            throw new Error('Credenciais do EmailJS não configuradas');
-          }
-      
           // Inicializar EmailJS
           emailjs.init(EMAIL_CONFIG.publicKey);
-          console.log('✅ EmailJS inicializado');
       
-          // Preparar dados do template
+          // Dados EXATAMENTE como no seu template
           const templateParams = {
-            from_name: formData.nome,
-            from_email: formData.email,
-            whatsapp: formData.whatsapp || 'Não informado',
-            empresa: formData.empresa || 'Não informado',
-            tipo_projeto: formData.tipoProjeto,
-            descricao: formData.descricao,
-            reply_to: formData.email
+            from_name: formData.nome,           // {{from_name}}
+            name: formData.nome,                // {{name}} - ADICIONADO!
+            from_email: formData.email,         // {{from_email}}
+            whatsapp: formData.whatsapp || 'Não informado',  // {{whatsapp}}
+            empresa: formData.empresa || 'Não informado',    // {{empresa}}
+            tipo_projeto: formData.tipoProjeto, // {{tipo_projeto}}
+            descricao: formData.descricao,      // {{descricao}}
+            reply_to: formData.email            // {{reply_to}}
           };
       
-          console.log('📤 Parâmetros do template:', templateParams);
+          console.log('📤 Enviando com parâmetros:', templateParams);
       
           // Enviar email
           const result = await emailjs.send(
-            EMAIL_CONFIG.serviceId,    // Service ID
-            EMAIL_CONFIG.templateId,   // Template ID  
-            templateParams             // Dados
+            'service_q4wrdct',    // Seu Service ID
+            'template_ebnhec2',   // Seu Template ID
+            templateParams,       // Dados do formulário
+            '-MtpXIC-alqLGkPx7'  // Sua Public Key
           );
       
-          console.log('✅ Email enviado com sucesso:', result);
+          console.log('✅ Email enviado:', result);
           alert('✅ Proposta enviada com sucesso! Você receberá uma resposta em breve.');
           
           // Limpar formulário
@@ -115,24 +111,8 @@ export default function ExcelExpertSite() {
           });
           
         } catch (error) {
-          console.error('❌ Erro detalhado:', error);
-          console.error('❌ Texto do erro:', error.text);
-          console.error('❌ Status do erro:', error.status);
-          
-          let mensagemErro = 'Erro desconhecido';
-          
-          if (error.text?.includes('service ID not found')) {
-            mensagemErro = `Service ID '${EMAIL_CONFIG.serviceId}' não encontrado. Verifique no EmailJS Dashboard.`;
-          } else if (error.text?.includes('template ID not found')) {
-            mensagemErro = `Template ID '${EMAIL_CONFIG.templateId}' não encontrado. Verifique no EmailJS Dashboard.`;
-          } else if (error.text?.includes('public key')) {
-            mensagemErro = `Public Key inválida. Verifique no EmailJS Dashboard.`;
-          } else if (error.text) {
-            mensagemErro = error.text;
-          }
-          
-          alert(`❌ Erro: ${mensagemErro}`);
-          
+          console.error('❌ Erro completo:', error);
+          alert(`❌ Erro: ${error.text || error.message || 'Erro desconhecido'}`);
         } finally {
           setIsLoading(false);
         }
