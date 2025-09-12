@@ -305,9 +305,9 @@ export default function ExcelExpertSite() {
               <Card key={index} className="border-gray-200">
                 <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 p-6">
                   <img 
-                    src="https://placehold.co/400x200" 
-                    alt="Screenshot de dashboard do Excel mostrando gráficos de vendas coloridos e tabelas de dados organizadas" 
-                    className="h-full w-full rounded-lg object-cover shadow-md"
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" 
+                    alt="Dashboard financeiro com gráficos e métricas detalhadas"
+                    className="h-48 w-full object-cover"
                   />
                 </div>
                 <CardHeader>
