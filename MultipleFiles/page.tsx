@@ -33,23 +33,22 @@ import {
 import { useState } from "react";
 import emailjs from '@emailjs/browser'; // Certifique-se de que esta linha está aqui
 
-    export default function ExcelExpertSite() {
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
-      // ESTAS DUAS LINHAS SÃO CRUCIAIS E DEVEM ESTAR AQUI:
-      const [isLoading, setIsLoading] = useState(false);
-      const [formData, setFormData] = useState({
-        nome: '', whatsapp: '', email: '', empresa: '', tipoProjeto: '', descricao: ''
-      });
+export default function ExcelExpertSite() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // ADICIONADO: Estados para o formulário e carregamento
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    nome: '', whatsapp: '', email: '', empresa: '', tipoProjeto: '', descricao: ''
+  });
 
-      // Função para atualizar os campos do formulário
-      const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-          ...prev,
-          [name]: value
-        }));
-      };
-    
+  // Função para atualizar os campos do formulário
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
