@@ -288,55 +288,138 @@ export default function ExcelExpertSite() {
         </div>
       </section>
 
-      {/* Trabalhos/Portfolio Section */}
-      <section id="trabalhos" className="bg-gray-50 py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Casos de Sucesso
-            </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-600">
-              Projetos reais que transformaram a gestão de dados dos meus clientes
-            </p>
-          </div>
+      // {/* Trabalhos/Portfolio Section */}
+<section id="trabalhos" className="bg-gray-50 py-20">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mb-16 text-center">
+      <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+        Casos de Sucesso
+      </h2>
+      <p className="mx-auto max-w-2xl text-xl text-gray-600">
+        Projetos reais que transformaram a gestão de dados dos meus clientes
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {trabalhos.map((trabalho, index) => (
-              <Card key={index} className="border-gray-200">
-                <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 p-6">
-                  <img 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" 
-                    alt="Dashboard financeiro com gráficos e métricas detalhadas"
-                    className="h-48 w-full object-cover"
-                  />
-                </div>
-                <CardHeader>
-                  <div className="mb-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-                    {trabalho.categoria}
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
-                    {trabalho.titulo}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="mb-4 leading-relaxed text-gray-600">
-                    {trabalho.descricao}
-                  </CardDescription>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
-                    {trabalho.resultados.map((resultado, resultIndex) => (
-                      <div key={resultIndex} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
-                        {resultado}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      {/* CARD 1 - Dashboard Financeiro */}
+      <Card className="border-gray-200">
+        <div className="overflow-hidden rounded-t-lg">
+          <img 
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1d5fce4b-06a7-49d8-9db2-64aaf7f5d2fa.png" 
+            alt="Dashboard financeiro com gráficos e métricas de desempenho empresarial"
+            className="h-48 w-full object-cover"
+          />
         </div>
-      </section>
+        <CardHeader>
+          <div className="mb-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
+            Financeiro
+          </div>
+          <CardTitle className="text-xl font-bold text-gray-900">
+            Dashboard Financeiro Corporativo
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription className="mb-4 leading-relaxed text-gray-600">
+            Sistema completo de controle financeiro com análises em tempo real, projeções e indicadores de performance.
+          </CardDescription>
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Redução de 80% no tempo de análise financeira
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Automatização de 15 relatórios mensais
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Economia de R$ 50.000 por ano em processos
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* CARD 2 - Sistema de Gestão */}
+      <Card className="border-gray-200">
+        <div className="overflow-hidden rounded-t-lg">
+          <img 
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b5ccef96-d908-44eb-a7b9-9db267fe1cbf.png" 
+            alt="Interface de sistema de gestão com tabelas e dados organizados"
+            className="h-48 w-full object-cover"
+          />
+        </div>
+        <CardHeader>
+          <div className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
+            Gestão
+          </div>
+          <CardTitle className="text-xl font-bold text-gray-900">
+            Sistema de Controle de Estoque
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription className="mb-4 leading-relaxed text-gray-600">
+            Planilha avançada para controle de estoque com alertas automáticos, histórico de movimentação e previsão de demanda.
+          </CardDescription>
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Redução de 60% em produtos em falta
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Otimização de 30% no capital de giro
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Automatização completa dos pedidos
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* CARD 3 - Análise de Produção */}
+      <Card className="border-gray-200">
+        <div className="overflow-hidden rounded-t-lg">
+          <img 
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cb491d85-e621-41e1-a235-7b3d14034233.png" 
+            alt="Gráficos e análises de dados de produção industrial"
+            className="h-48 w-full object-cover"
+          />
+        </div>
+        <CardHeader>
+          <div className="mb-2 inline-block rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800">
+            Produção
+          </div>
+          <CardTitle className="text-xl font-bold text-gray-900">
+            Análise de Produtividade Industrial
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription className="mb-4 leading-relaxed text-gray-600">
+            Dashboard completo para monitoramento da produção com indicadores de eficiência, qualidade e performance das equipes.
+          </CardDescription>
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-900">Resultados Alcançados:</h4>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Aumento de 25% na produtividade
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Redução de 40% no tempo de parada
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-600" />
+              Melhoria de 15% na qualidade final
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</section>
 
       {/* Depoimentos Section */}
       <section id="depoimentos" className="py-20">
