@@ -583,7 +583,7 @@ export default function ExcelExpertSite() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">WhatsApp (Preferido)</h4>
-                    <p className="text-gray-600">+55 (11) 99999-9999</p>
+                    <p className="text-gray-600">+55 (31) 98456-8339</p>
                     <Button variant="outline" className="mt-2 border-green-600 text-green-600 hover:bg-green-50">
                       Iniciar Conversa
                     </Button>
@@ -596,7 +596,7 @@ export default function ExcelExpertSite() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">E-mail</h4>
-                    <p className="text-gray-600">contato@excelexpertbr.com</p>
+                    <p className="text-gray-600">gabrielfrancisco.12@hotmail.com</p>
                   </div>
                 </div>
 
@@ -606,7 +606,7 @@ export default function ExcelExpertSite() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Telefone</h4>
-                    <p className="text-gray-600">+55 (11) 3333-4444</p>
+                    <p className="text-gray-600">+55 (31) 984568339</p>
                   </div>
                 </div>
               </div>
