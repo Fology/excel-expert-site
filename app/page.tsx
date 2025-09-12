@@ -62,16 +62,17 @@ export default function ExcelExpertSite() {
           emailjs.init(EMAIL_CONFIG.publicKey);
       
           // Dados EXATAMENTE como no seu template
-          const templateParams = {
-            from_name: formData.nome,           // {{from_name}}
-            name: formData.nome,                // {{name}} - ADICIONADO!
-            from_email: formData.email,         // {{from_email}}
-            whatsapp: formData.whatsapp || 'Não informado',  // {{whatsapp}}
-            empresa: formData.empresa || 'Não informado',    // {{empresa}}
-            tipo_projeto: formData.tipoProjeto, // {{tipo_projeto}}
-            descricao: formData.descricao,      // {{descricao}}
-            reply_to: formData.email            // {{reply_to}}
-          };
+               const templateParams = {
+       from_name: formData.nome || 'Não informado',
+       name: formData.nome || 'Não informado',
+       from_email: formData.email || 'Não informado',
+       whatsapp: formData.whatsapp || 'Não informado',
+       empresa: formData.empresa || 'Não informado',
+       tipo_projeto: formData.tipoProjeto || 'Não informado',
+       descricao: formData.descricao || 'Não informado',
+       reply_to: formData.email || 'Não informado'
+     };
+     
       
           console.log('📤 Enviando com parâmetros:', templateParams);
       
