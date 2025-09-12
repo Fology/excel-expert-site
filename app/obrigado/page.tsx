@@ -28,7 +28,7 @@ export default function ObrigadoPage() {
             <Button 
               className="w-full bg-green-600 hover:bg-green-700"
               onClick={() => {
-                const phoneNumber = "5511999999999"; // ← SEU NÚMERO
+                const phoneNumber = "5531984568339"; // ← SEU NÚMERO
                 const message = "Olá! Acabei de enviar uma proposta pelo site e gostaria de falar com você.";
                 const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                 window.open(whatsappURL, '_blank');
