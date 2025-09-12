@@ -31,28 +31,9 @@ import {
   Zap
 } from "lucide-react";
 import { useState } from "react";
-import emailjs from '@emailjs/browser';
 
 export default function ExcelExpertSite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // Estados para o formulário
-  const [formData, setFormData] = useState({
-    nome: '',
-    whatsapp: '',
-    email: '',
-    empresa: '',
-    tipoProjeto: '',
-    descricao: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Configurações do EmailJS - SUBSTITUA pelos seus dados
-  const EMAIL_CONFIG = {
-    serviceId: 'service_q4wrdct',      // ← SUBSTITUA pelo seu Service ID
-    templateId: 'template_ebnhec2',    // ← SUBSTITUA pelo seu Template ID
-    publicKey: '-MtpXIC-alqLGkPx7'       // ← SUBSTITUA pela sua Public Key
-  };
 
   // Função para atualizar os campos
   const handleInputChange = (e: any) => {
@@ -565,9 +546,9 @@ export default function ExcelExpertSite() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Formulário de Contato FUNCIONAL */}
+      </section>  
+      
+      {/* Formulário para Netlify */}
       <section id="contato" className="bg-gray-50 py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
@@ -578,7 +559,7 @@ export default function ExcelExpertSite() {
               Preencha o formulário e receba uma proposta personalizada por email
             </p>
           </div>
-
+      
           <div className="mx-auto max-w-2xl">
             <Card className="border-gray-200">
               <CardHeader>
@@ -590,7 +571,15 @@ export default function ExcelExpertSite() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form 
+                  name="contato-excel" 
+                  method="POST" 
+                  data-netlify="true"
+                  action="/obrigado"
+                  className="space-y-4"
+                >
+                  <input type="hidden" name="form-name" value="contato-excel" />
+                  
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -598,8 +587,6 @@ export default function ExcelExpertSite() {
                       </label>
                       <Input 
                         name="nome"
-                        value={formData.nome}
-                        onChange={handleInputChange}
                         placeholder="Digite seu nome completo" 
                         required
                       />
@@ -610,8 +597,6 @@ export default function ExcelExpertSite() {
                       </label>
                       <Input 
                         name="whatsapp"
-                        value={formData.whatsapp}
-                        onChange={handleInputChange}
                         placeholder="(11) 99999-9999" 
                       />
                     </div>
@@ -624,33 +609,27 @@ export default function ExcelExpertSite() {
                     <Input 
                       type="email" 
                       name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
                       placeholder="seu@email.com" 
                       required
                     />
                   </div>
-
+      
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       Empresa
                     </label>
                     <Input 
                       name="empresa"
-                      value={formData.empresa}
-                      onChange={handleInputChange}
                       placeholder="Nome da sua empresa" 
                     />
                   </div>
-
+      
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       Tipo de Projeto *
                     </label>
                     <select 
                       name="tipoProjeto"
-                      value={formData.tipoProjeto}
-                      onChange={handleInputChange}
                       className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
                       required
                     >
@@ -664,39 +643,27 @@ export default function ExcelExpertSite() {
                       <option value="Outro">Outro</option>
                     </select>
                   </div>
-
+      
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-700">
                       Descreva seu projeto *
                     </label>
                     <Textarea 
                       name="descricao"
-                      value={formData.descricao}
-                      onChange={handleInputChange}
                       placeholder="Descreva detalhadamente o que você precisa: qual problema quer resolver, que tipo de dados tem, quantas pessoas vão usar, prazo desejado, etc."
                       rows={5}
                       required
                     />
                   </div>
-
+      
                   <Button 
                     type="submit" 
-                    disabled={isLoading}
-                    className="w-full bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-green-600 text-white hover:bg-green-700"
                   >
-                    {isLoading ? (
-                      <>
-                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        Enviar Proposta
-                        <Mail className="ml-2 h-4 w-4" />
-                      </>
-                    )}
+                    Enviar Proposta
+                    <Mail className="ml-2 h-4 w-4" />
                   </Button>
-
+      
                   <p className="text-center text-xs text-gray-500">
                     * Campos obrigatórios. Você receberá uma resposta por email em até 24h.
                   </p>
@@ -706,7 +673,7 @@ export default function ExcelExpertSite() {
           </div>
         </div>
       </section>
-
+      
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
