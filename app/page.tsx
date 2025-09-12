@@ -262,7 +262,7 @@ export default function ExcelExpertSite() {
               <Button 
                 className="bg-green-600 hover:bg-green-700"
                 onClick={() => {
-                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
+                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
                   const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
                   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappURL, '_blank');
@@ -338,7 +338,7 @@ export default function ExcelExpertSite() {
                 variant="outline" 
                 size="lg"
                 onClick={() => {
-                  const phoneNumber = "5511999999999"; // ← SUBSTITUA pelo seu número
+                  const phoneNumber = "5531984568339"; // ← SUBSTITUA pelo seu número
                   const message = "Olá! Vi seu site e gostaria de saber mais sobre seus serviços de Excel.";
                   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappURL, '_blank');
