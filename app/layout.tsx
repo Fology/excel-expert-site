@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'  // ← Esta linha deve estar aqui
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Excel Expert BR - Especialista em Dashboards e Automação',
-  description: 'Especialista em Excel com mais de 5 anos de experiência. Dashboards, automações e análises de dados para empresas brasileiras.',
+  title: 'GB Excel - Especialista em Dashboards e Automação',
+  description: 'Especialista em Excel com mais de 7 anos de experiência. Dashboards, automações e análises de dados para empresas brasileiras.',
 }
 
 export default function RootLayout({
@@ -17,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* COLE SUA TAG AQUI */}
         <meta name="google-site-verification" content="NkmbDM0mS7Uw11kRPWy5VYN7YmTVr05Ws2eaaDGf8zY" />
       </head>
       <body className={inter.className}>{children}</body>
