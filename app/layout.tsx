@@ -18,6 +18,16 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <meta name="google-site-verification" content="NkmbDM0mS7Uw11kRPWy5VYN7YmTVr05Ws2eaaDGf8zY" />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-17554270898"></Script>
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-17554270898');
+          `}
+        </Script>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
