@@ -16,6 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/* COLE SUA TAG AQUI */}
+        <meta name="google-site-verification" content="NkmbDM0mS7Uw11kRPWy5VYN7YmTVr05Ws2eaaDGf8zY" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
