@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Script from 'next/script' // <-- A LINHA QUE FALTAVA ESTÁ AQUI
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,10 +15,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-return (
+  return (
     <html lang="pt-BR">
       <head>
         <meta name="google-site-verification" content="NkmbDM0mS7Uw11kRPWy5VYN7YmTVr05Ws2eaaDGf8zY" />
+        
+        {/* Google tag (gtag.js) */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-17554270898"></Script>
         <Script id="google-analytics">
           {`
