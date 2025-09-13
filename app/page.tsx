@@ -293,7 +293,7 @@ export default function ExcelExpertSite() {
               <span className="text-green-600">Decisões Inteligentes</span>
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
-              Especialista em Excel com mais de 5 anos de experiência criando
+              Especialista em Excel com mais de 7 anos de experiência criando
               soluções personalizadas para empresas brasileiras. Dashboards,
               automações e análises que geram resultados reais.
             </p>
