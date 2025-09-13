@@ -217,7 +217,7 @@ export default function ExcelExpertSite() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">Excel Expert BR</h1>
+              <h1 className="text-2xl font-bold text-green-600">GB Excel</h1>
             </div>
 
             <nav className="hidden md:block">
@@ -699,7 +699,7 @@ export default function ExcelExpertSite() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
-              <h3 className="mb-4 text-lg font-bold text-gray-900">Excel Expert BR</h3>
+              <h3 className="mb-4 text-lg font-bold text-gray-900">GB Excel</h3>
               <p className="mb-4 text-gray-600">
                 Especialista em soluções Excel para empresas brasileiras.
                 Transformamos seus dados em decisões inteligentes.
@@ -748,7 +748,7 @@ export default function ExcelExpertSite() {
 
           <div className="mt-8 flex flex-col items-center justify-between border-t border-gray-200 pt-8 sm:flex-row">
             <p className="text-sm text-gray-600">
-              © 2024 Excel Expert BR. Todos os direitos reservados.
+              © 2024 GB Excel. Todos os direitos reservados.
             </p>
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Feito com ❤️ para empresas brasileiras
